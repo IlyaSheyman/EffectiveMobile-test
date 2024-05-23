@@ -1,0 +1,21 @@
+services:
+  app-service:
+    build: app-service
+    image: app-service
+    container_name: app-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - bank-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bank-db:5432/bank
+
+  bank-db:
+    image: postgres:latest
+    container_name: postgres-coverit
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=bank
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
