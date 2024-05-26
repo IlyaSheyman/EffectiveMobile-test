@@ -72,10 +72,10 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleIncorrectRequest(final MethodArgumentNotValidException e) {
         String defaultMessage = Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage();
-        log.warn("400 {}", defaultMessage, e);
+        log.warn("400 {}", e.getMessage(), e);
         return new ErrorResponse("Bad request",
                 defaultMessage,
-                "Argument not valid",
+                e.getMessage(),
                 HttpStatus.BAD_REQUEST.toString(),
                 LocalDateTime.now().format(formatter));
     }
