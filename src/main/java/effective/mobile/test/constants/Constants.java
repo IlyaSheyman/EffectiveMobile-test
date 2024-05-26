@@ -11,10 +11,20 @@ public interface Constants {
     int MIN_EMAILS_NUMBER = 1;
     int MIN_PHONES_NUMBER = 1;
 
+    double MAX_BALANCE_INDEX = 2.07;
+    double INCOME_INDEX = 1.05;
+
     int TOKEN_EXPIRATION = 100000 * 60 * 24;
 
     String USERNAME_PATTERN = "^(?=\\S+$).*$";
     String PHONE_PATTERN = "\\+?[0-9. ()-]+";
     String NAME_PATTERN = "^\\S+ \\S+ \\S+$";
     String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    enum Filter {
+        BIRTH_DATE, // Filter by birth date
+        PHONE,      // Filter by phone
+        NAME,       // Filter by name
+        EMAIL       // Filter by email
+    }
 }

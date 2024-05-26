@@ -1,4 +1,4 @@
-package effective.mobile.test.user.dto;
+package effective.mobile.test.user.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -49,4 +49,9 @@ public class SignUpRequest {
     @JsonProperty("birth_date")
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate birthDate;
+
+    @JsonProperty("initial_deposit")
+    @NotNull
+    @Min(0)
+    private Double initialDeposit;
 }

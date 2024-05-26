@@ -1,4 +1,4 @@
-package effective.mobile.test.user.dto;
+package effective.mobile.test.user.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;

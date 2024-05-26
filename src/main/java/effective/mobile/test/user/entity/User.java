@@ -1,12 +1,12 @@
 package effective.mobile.test.user.entity;
 
+import effective.mobile.test.account.entity.Account;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class User implements UserDetails {
 
     @ElementCollection
     @CollectionTable(name = "user_emails", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "email")
     private List<String> emails;
 
     private String password;
@@ -40,6 +41,10 @@ public class User implements UserDetails {
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    private Account account;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

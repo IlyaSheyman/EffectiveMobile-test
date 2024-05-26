@@ -1,9 +1,10 @@
 package effective.mobile.test.user.service;
 
+import effective.mobile.test.account.entity.Account;
 import effective.mobile.test.config.security.JwtAuthenticationResponse;
 import effective.mobile.test.config.security.JwtService;
-import effective.mobile.test.user.dto.SignInRequest;
-import effective.mobile.test.user.dto.SignUpRequest;
+import effective.mobile.test.user.dto.request.SignInRequest;
+import effective.mobile.test.user.dto.request.SignUpRequest;
 import effective.mobile.test.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,10 +41,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
 
+        Double initialDeposit = request.getInitialDeposit();
+        Account account = Account.builder()
+                .initialDeposit(initialDeposit)
+                .balance(initialDeposit)
+                .build();
+
+        user.setAccount(account);
+
         userService.create(user);
 
         var jwt = jwtService.generateToken(user);
 
+        log.info(String.format("user with login %s is created with initial deposit %.2f",
+                user.getLogin(),
+                initialDeposit));
         return new JwtAuthenticationResponse(jwt);
     }
 
@@ -64,6 +76,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var jwt = jwtService.generateToken(user);
 
+        log.info(String.format("user with id %d signed in", user.getId()));
         return new JwtAuthenticationResponse(jwt);
     }
 }

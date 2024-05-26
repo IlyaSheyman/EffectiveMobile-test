@@ -1,8 +1,8 @@
 package effective.mobile.test.user.controller;
 
 import effective.mobile.test.config.security.JwtAuthenticationResponse;
-import effective.mobile.test.user.dto.SignInRequest;
-import effective.mobile.test.user.dto.SignUpRequest;
+import effective.mobile.test.user.dto.request.SignInRequest;
+import effective.mobile.test.user.dto.request.SignUpRequest;
 import effective.mobile.test.user.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
