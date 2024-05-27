@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "3ed087b1-f34f-4f21-a22e-7607e916fc80",
+		"name": "effective mobile test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29462647"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "sign-up user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Шейман Илья Игоревич\",\r\n  \"login\": \"sheyman12\",\r\n  \"emails\": [\r\n    \"user1@example.com\",\r\n    \"user2@example.com\"\r\n  ],\r\n  \"password\": \"UsersPassword12!\",\r\n  \"phones\": [\r\n    \"+7(917)561-24-93\",\r\n    \"(123) 456-7890\"\r\n  ],\r\n  \"birth_date\": \"05.09.1990\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/sign-up",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign-in user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localUrl}}/auth/sign-in",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user data",
+			"item": [
+				{
+					"name": "add email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InNoZXltYW4xMyIsInN1YiI6IjEiLCJpYXQiOjE3MTY2NTQ5ODYsImV4cCI6MTcxNjc5ODk4Nn0.MtJPUzArWfR6oBhGonLU4P4Hq4byh1NcLSYxJXEC5ow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user3@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/email",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InNoZXltYW4xMyIsInN1YiI6IjEiLCJpYXQiOjE3MTY2NTQ5ODYsImV4cCI6MTcxNjc5ODk4Nn0.MtJPUzArWfR6oBhGonLU4P4Hq4byh1NcLSYxJXEC5ow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ilyash5eiman@yandex.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/email",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add phone",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InNoZXltYW4xMyIsInN1YiI6IjEiLCJpYXQiOjE3MTY2NTQ5ODYsImV4cCI6MTcxNjc5ODk4Nn0.MtJPUzArWfR6oBhGonLU4P4Hq4byh1NcLSYxJXEC5ow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"+7(917)508-96-70\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/phone",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"phone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete phone",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InNoZXltYW4xMyIsInN1YiI6IjEiLCJpYXQiOjE3MTY2NTQ5ODYsImV4cCI6MTcxNjc5ODk4Nn0.MtJPUzArWfR6oBhGonLU4P4Hq4byh1NcLSYxJXEC5ow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"+7(917)561-24-93\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/phone",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"phone"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "search",
+			"item": [
+				{
+					"name": "find users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InNoZXltYW4xMyIsInN1YiI6IjEiLCJpYXQiOjE3MTY2NzUwMzIsImV4cCI6MTcxNjgxOTAzMn0.pwQ7mYareGQxqGSBeD9gCU1sMsBWmaIUZpaylQawB70",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "jane.roe@example.com",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user?filter=EMAIL&page=0&size=8",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "EMAIL"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transfer money",
+			"item": [
+				{
+					"name": "transfer money",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InNoZXltYW4xMiIsInN1YiI6IjExIiwiaWF0IjoxNzE2NzUwMjQzLCJleHAiOjE3MTY4OTQyNDN9.NeyX7V5RC8SEyJpllgxWV5q_iFF4jHFX3779T5WTRTc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n//   \"number\": \"+1987654321\",\r\n//   \"email\": \"john.doe@example.com\",\r\n  \"amount\": 10.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/account/transfer",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"account",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

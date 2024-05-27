@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 import static effective.mobile.test.constants.Constants.*;
 
 @Data
+@Builder
 public class TransferRequestDto {
     @JsonProperty("number")
     @Size(min = MIN_PHONE_LENGTH,
