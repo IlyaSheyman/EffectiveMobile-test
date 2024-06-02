@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,20 +37,26 @@ public class AccountServiceImpl implements AccountService {
      * Increases the balance by 5% but not more than 207% of the initial deposit.
      */
     @Scheduled(fixedRate = 60000)
+    @Transactional
     public void updateBalances() {
+        log.info("Starting to update balances");
         List<User> users = userRepository.findAll();
-        for (User user : users) {
-            Account account = user.getAccount();
-            if (account != null) {
-                double currentBalance = account.getBalance();
-                double newBalance = currentBalance * INCOME_INDEX;
-                double maxBalance = account.getInitialDeposit() * MAX_BALANCE_INDEX;
-                account.setBalance(Math.min(newBalance, maxBalance));
+        if (users.isEmpty()) {
+            log.info("List of users is empty, no need to update balances");
+        } else {
+            for (User user : users) {
+                Account account = user.getAccount();
+                if (account != null) {
+                    double currentBalance = account.getBalance();
+                    double newBalance = currentBalance * INCOME_INDEX;
+                    double maxBalance = account.getInitialDeposit() * MAX_BALANCE_INDEX;
+                    account.setBalance(Math.min(newBalance, maxBalance));
 
-                accountRepository.save(account);
+                    accountRepository.save(account);
+                }
             }
+            log.info("Balances updated at: " + LocalDateTime.now());
         }
-        log.info("Balances updated at: " + LocalDateTime.now());
     }
 
     /**
@@ -57,7 +64,7 @@ public class AccountServiceImpl implements AccountService {
      * Validates the recipient, ensures the sender has enough balance, and updates the accounts.
      *
      * @param token the authentication token of the sender
-     * @param dto the transfer request containing recipient details and amount
+     * @param dto   the transfer request containing recipient details and amount
      */
     @Override
     public synchronized void transferMoney(String token, TransferRequestDto dto) {
