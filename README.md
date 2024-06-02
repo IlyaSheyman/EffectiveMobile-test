@@ -47,7 +47,7 @@ Increase account balances by 5% every minute, capped at 207% of the initial depo
 - `mvn clean package`
 
 4. Run Docker Compose:
-- `docker-compose up -d --build`
+- `docker-compose up --build`
 
 5. After successful launch, you will be able to access your application at:
 - http://localhost:8080 for Main Service
