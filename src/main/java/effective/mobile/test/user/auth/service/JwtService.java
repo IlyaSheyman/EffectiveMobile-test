@@ -22,10 +22,10 @@ public class JwtService {
     private String jwtSigningKey;
 
     /**
-     * Extract username from token
+     * Extract userId from token
      *
      * @param token token
-     * @return username
+     * @return userId
      */
     public int extractUserId(String token) {
         return Integer.parseInt(extractClaim(token, Claims::getSubject));
