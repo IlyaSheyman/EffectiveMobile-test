@@ -1,0 +1,23 @@
+services:
+  app-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: app-service
+    container_name: app-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - task-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://task-db:5432/task
+
+  task-db:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=task
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
