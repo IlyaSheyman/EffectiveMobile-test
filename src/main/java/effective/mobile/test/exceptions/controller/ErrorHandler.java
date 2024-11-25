@@ -1,6 +1,7 @@
 package effective.mobile.test.exceptions.controller;
 
 import effective.mobile.test.exceptions.dto.ErrorResponse;
+import effective.mobile.test.exceptions.model.AccessDeniedException;
 import effective.mobile.test.exceptions.model.BadRequestException;
 import effective.mobile.test.exceptions.model.ConflictRequestException;
 import effective.mobile.test.exceptions.model.NotFoundException;
@@ -37,7 +38,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleIncorrectRequest(final BadRequestException e) {
+    public ErrorResponse handleBadRequestException(final BadRequestException e) {
         log.warn("400 {}", e.getMessage(), e);
         return new ErrorResponse("Bad request",
                 e.getMessage(),
@@ -48,12 +49,23 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleIncorrectRequest(final ConflictRequestException e) {
+    public ErrorResponse handleConflictRequestException(final ConflictRequestException e) {
         log.warn("409 {}", e.getMessage(), e);
         return new ErrorResponse("Conflict",
                 e.getMessage(),
                 "Conflict",
                 HttpStatus.CONFLICT.toString(),
+                LocalDateTime.now().format(formatter));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleAccessDeniedException(final AccessDeniedException e) {
+        log.warn("409 {}", e.getMessage(), e);
+        return new ErrorResponse("Access denied",
+                e.getMessage(),
+                "Forbidden",
+                HttpStatus.NOT_FOUND.toString(),
                 LocalDateTime.now().format(formatter));
     }
 }

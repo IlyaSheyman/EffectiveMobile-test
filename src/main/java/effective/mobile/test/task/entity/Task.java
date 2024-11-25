@@ -4,15 +4,19 @@ import effective.mobile.test.constants.Priority;
 import effective.mobile.test.constants.Status;
 import effective.mobile.test.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tasks")
+@Builder
+@Data
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String title;
     private String description;
