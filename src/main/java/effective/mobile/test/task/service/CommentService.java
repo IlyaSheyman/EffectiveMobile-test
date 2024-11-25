@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -33,14 +35,16 @@ public class CommentService {
         Comment comment = Comment.builder()
                 .text(commentRequest.getText())
                 .author(user)
+                .createdAt(LocalDateTime.now())
                 .task(task)
                 .build();
 
         return commentMapper.toCommentDto(commentRepository.save(comment));
     }
 
-    private User getUserFromToken(String userToken) {
-        int userId = jwtService.extractUserId(userToken);
+    private User getUserFromToken(String bearerToken) {
+        String token = bearerToken.substring(7);
+        int userId = jwtService.extractUserId(token);
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь с id " + userId + " не найден"));
     }

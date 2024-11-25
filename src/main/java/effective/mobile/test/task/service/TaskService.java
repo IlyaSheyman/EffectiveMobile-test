@@ -34,6 +34,15 @@ public class TaskService {
 
 
     //ADMIN FUNCTIONALITY:
+
+    /**
+     * Creates a new task.
+     *
+     * @param task      the task creation request data.
+     * @param userToken the token of the user creating the task.
+     * @return DTO with information about the created task.
+     * @throws AccessDeniedException if the user is not an administrator.
+     */
     public TaskCreatedDto createTask(TaskCreateRequest task, String userToken) {
         User author = getUserFromToken(userToken);
 
@@ -50,7 +59,7 @@ public class TaskService {
                 .description(task.getDescription())
                 .author(author)
                 .priority(task.getPriority())
-                .status(task.getStatus())
+                .status(Status.PENDING)
                 .comments(comments)
                 .build();
 
@@ -59,6 +68,15 @@ public class TaskService {
         return taskMapper.toTaskCreatedDto(saved);
     }
 
+    /**
+     * Updates an existing task.
+     *
+     * @param dto       the task update request data.
+     * @param userToken the token of the user updating the task.
+     * @return DTO with information about the updated task.
+     * @throws AccessDeniedException if the user is not an administrator or the author of the task.
+     * @throws NotFoundException if the task is not found.
+     */
     public TaskUpdatedDto updateTask(TaskUpdateRequest dto, String userToken) {
         User user = getUserFromToken(userToken);
         Task task = getTaskById(dto.getId());
@@ -91,6 +109,14 @@ public class TaskService {
         return taskMapper.toTaskUpdatedDto(taskRepository.save(task));
     }
 
+    /**
+     * Deletes a task.
+     *
+     * @param id        the ID of the task to delete.
+     * @param userToken the token of the user deleting the task.
+     * @throws AccessDeniedException if the user is not an administrator or the author of the task.
+     * @throws NotFoundException if the task is not found.
+     */
     public void deleteTask(int id, String userToken) {
         User user = getUserFromToken(userToken);
         Task task = getTaskById(id);
@@ -106,6 +132,16 @@ public class TaskService {
         taskRepository.delete(task);
     }
 
+    /**
+     * Retrieves a list of tasks created by the user.
+     *
+     * @param userToken  the token of the user requesting the tasks.
+     * @param pageable   the pagination details.
+     * @param filter     the task filter (by status, priority, etc.).
+     * @param assigneeId the ID of the assignee for additional filtering.
+     * @return a list of tasks in DTO format.
+     * @throws AccessDeniedException if the user is not an administrator.
+     */
     public List<TaskGetDto> getCreatedTasks(String userToken,
                                             Pageable pageable,
                                             TaskFilter filter,
@@ -134,6 +170,15 @@ public class TaskService {
     }
 
     //USER FUNCTIONALITY:
+
+    /**
+     * Retrieves a list of tasks assigned to the user.
+     *
+     * @param userToken the token of the user requesting the tasks.
+     * @param pageable  the pagination details.
+     * @param filter    the task filter (by status, priority, etc.).
+     * @return a list of tasks in DTO format.
+     */
     public List<TaskGetDto> getTasksByAssignee(String userToken, Pageable pageable, TaskFilter filter) {
         User user = getUserFromToken(userToken);
         Page<Task> tasksPage = switch (filter) {
@@ -151,6 +196,15 @@ public class TaskService {
                 .toList();
     }
 
+    /**
+     * Updates the status of a task.
+     *
+     * @param statusRequest the status update request data.
+     * @param userToken     the token of the user updating the status.
+     * @return DTO with information about the updated task.
+     * @throws AccessDeniedException if the user is not the assignee or author of the task.
+     * @throws NotFoundException if the task is not found.
+     */
     public TaskUpdatedDto updateTaskStatus(UpdateStatusRequest statusRequest, String userToken) {
         User user = getUserFromToken(userToken);
         Task task = getTaskById(statusRequest.getTaskId());
@@ -163,8 +217,9 @@ public class TaskService {
         return taskMapper.toTaskUpdatedDto(taskRepository.save(task));
     }
 
-    private User getUserFromToken(String userToken) {
-        int userId = jwtService.extractUserId(userToken);
+    private User getUserFromToken(String bearerToken) {
+        String token = bearerToken.substring(7);
+        int userId = jwtService.extractUserId(token);
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь с id " + userId + " не найден"));
     }

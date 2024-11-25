@@ -44,7 +44,11 @@ public class SecurityConfiguration {
                 }))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/auth/sign-up", "/auth/sign-in").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**", "/swagger-ui.html", "/api-docs").permitAll()
+                        .requestMatchers("/swagger-ui/**",
+                                "/swagger-resources/*",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/api-docs").permitAll()
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers( "/admin").hasRole("ADMIN")
                         .anyRequest().authenticated())
@@ -63,7 +67,6 @@ public class SecurityConfiguration {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userService.userDetailsService());
-        //TODO проверить, все ли работает после этого изменения, так как оно внесено из самолета
 
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;

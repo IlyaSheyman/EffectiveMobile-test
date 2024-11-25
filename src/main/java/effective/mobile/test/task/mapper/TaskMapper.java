@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 @Component
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {CommentMapper.class})
 public interface TaskMapper {
     TaskCreatedDto toTaskCreatedDto(Task task);
     TaskUpdatedDto toTaskUpdatedDto(Task task);

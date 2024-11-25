@@ -2,7 +2,7 @@ package effective.mobile.test.task.dto.task;
 
 import effective.mobile.test.constants.Priority;
 import effective.mobile.test.constants.Status;
-import effective.mobile.test.task.entity.Comment;
+import effective.mobile.test.task.dto.comment.CommentDto;
 import effective.mobile.test.user.dto.UserTaskDto;
 import lombok.Data;
 
@@ -17,5 +17,5 @@ public class TaskUpdatedDto {
     private Priority priority;
     private UserTaskDto author;
     private UserTaskDto assignee;
-    private List<Comment> comments;
+    private List<CommentDto> comments;
 }

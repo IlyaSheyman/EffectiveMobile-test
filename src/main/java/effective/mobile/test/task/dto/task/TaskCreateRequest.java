@@ -2,7 +2,6 @@ package effective.mobile.test.task.dto.task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import effective.mobile.test.constants.Priority;
-import effective.mobile.test.constants.Status;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -24,9 +23,6 @@ public class TaskCreateRequest {
             message = "Description must be between " + MIN_DESCRIPTION_LENGTH +
                     " and " + MAX_DESCRIPTION_LENGTH + " characters")
     private String description;
-
-    @NotNull(message = "Status cannot be null")
-    private Status status;
 
     @NotNull(message = "Priority cannot be null")
     private Priority priority;
