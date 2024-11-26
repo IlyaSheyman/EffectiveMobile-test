@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import effective.mobile.test.constants.Priority;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 import static effective.mobile.test.constants.Constants.*;
 
 @Data
+@Builder
 public class TaskCreateRequest {
     @NotNull(message = "Title cannot be null")
     @Size(min = MIN_TITLE_LENGTH,

@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import effective.mobile.test.constants.Priority;
 import effective.mobile.test.constants.Status;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 import static effective.mobile.test.constants.Constants.*;
 
 @Data
+@Builder
 public class TaskUpdateRequest {
     private int id;
 
