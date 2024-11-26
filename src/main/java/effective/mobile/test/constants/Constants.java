@@ -21,4 +21,6 @@ public interface Constants {
     int MAX_DESCRIPTION_LENGTH = 255;
     int MIN_COMMENT_LENGTH = 5;
     int MAX_COMMENT_LENGTH = 255;
+    int MIN_USER_PASSWORD_LENGTH = 6;
+    int MAX_USER_PASSWORD_LENGTH = 32;
 }
