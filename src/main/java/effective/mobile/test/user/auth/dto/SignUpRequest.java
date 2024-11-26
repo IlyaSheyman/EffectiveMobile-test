@@ -1,5 +1,6 @@
 package effective.mobile.test.user.auth.dto;
 
+import effective.mobile.test.user.auth.config.password_validation.ValidPassword;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -23,5 +24,6 @@ public class SignUpRequest {
 
     @Schema(description = "Пароль", example = "my_1secret1_password")
     @Size(max = 255, message = "Длина пароля должна быть не более 255 символов")
+    @ValidPassword
     private String password;
 }
