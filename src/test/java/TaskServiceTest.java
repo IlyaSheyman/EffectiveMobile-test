@@ -94,7 +94,7 @@ public class TaskServiceTest {
 
         when(jwtService.extractUserId("userToken")).thenReturn(1);
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        
+
         assertThrows(AccessDeniedException.class, () -> taskService.createTask(request, token));
     }
 

@@ -1,5 +1,8 @@
 package effective.mobile.test.user.auth.config;
 
+import effective.mobile.test.user.auth.service.JwtService;
+import effective.mobile.test.user.entity.User;
+import effective.mobile.test.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,9 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import effective.mobile.test.user.auth.service.JwtService;
-import effective.mobile.test.user.entity.User;
-import effective.mobile.test.user.service.UserService;
 
 import java.io.IOException;
 
@@ -35,7 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
-        // Получаем токен из заголовка
         var authHeader = request.getHeader(HEADER_NAME);
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, BEARER_PREFIX)) {
             filterChain.doFilter(request, response);
@@ -50,8 +49,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             User userDetails = userService
                     .getUserById(userId);
 
-
-            // Если токен валиден, то аутентифицируем пользователя
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
 

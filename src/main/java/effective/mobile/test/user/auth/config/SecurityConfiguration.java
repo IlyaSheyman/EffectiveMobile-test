@@ -33,7 +33,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                // Turning off CORS (requests from all domens approval)
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfiguration = new CorsConfiguration();
                     corsConfiguration.setAllowedOriginPatterns(List.of("*"));
@@ -50,7 +49,7 @@ public class SecurityConfiguration {
                                 "/swagger-ui.html",
                                 "/api-docs").permitAll()
                         .requestMatchers("/user/**").authenticated()
-                        .requestMatchers( "/admin").hasRole("ADMIN")
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())
