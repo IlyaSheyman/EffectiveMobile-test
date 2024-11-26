@@ -15,4 +15,10 @@ public interface Constants {
             "jondoe@gmail.com"
     );
 
+    int MIN_TITLE_LENGTH = 5;
+    int MAX_TITLE_LENGTH = 100;
+    int MIN_DESCRIPTION_LENGTH = 5;
+    int MAX_DESCRIPTION_LENGTH = 255;
+    int MIN_COMMENT_LENGTH = 5;
+    int MAX_COMMENT_LENGTH = 255;
 }

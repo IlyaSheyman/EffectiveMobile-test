@@ -1,16 +1,16 @@
 package effective.mobile.test.user.auth.service;
 
 import effective.mobile.test.constants.Constants;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import effective.mobile.test.user.auth.dto.JwtAuthenticationResponse;
 import effective.mobile.test.user.auth.dto.SignInRequest;
 import effective.mobile.test.user.auth.dto.SignUpRequest;
 import effective.mobile.test.user.entity.User;
 import effective.mobile.test.user.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +21,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     /**
-     * Регистрация пользователя
+     * Registers a new user.
      *
-     * @param request данные пользователя
-     * @return токен
+     * @param request the user registration details
+     * @return a response containing the generated JWT token
      */
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
 
@@ -42,10 +42,10 @@ public class AuthenticationService {
     }
 
     /**
-     * Аутентификация пользователя
+     * Authenticates a user.
      *
-     * @param request данные пользователя
-     * @return токен
+     * @param request the user authentication details
+     * @return a response containing the generated JWT token
      */
     public JwtAuthenticationResponse signIn(SignInRequest request) {
         var user = userService
